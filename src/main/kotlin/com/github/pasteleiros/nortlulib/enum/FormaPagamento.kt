@@ -1,4 +1,4 @@
-package com.nortlu.enum
+package com.github.pasteleiros.nortlulib.enum
 
 enum class FormaPagamento (val id: Long, val descricao: String) {
     CREDITO(1, "Crédito"),

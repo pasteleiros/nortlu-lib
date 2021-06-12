@@ -1,4 +1,4 @@
-package com.nortlu.dto
+package com.github.pasteleiros.nortlulib.dto
 
 data class EnderecoDto(
         val id: Long?,
@@ -9,4 +9,4 @@ data class EnderecoDto(
         val cidade: String,
         val cep: String,
         val observacao: String = ""
-)
+):BaseDto()

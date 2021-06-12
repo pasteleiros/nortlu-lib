@@ -1,10 +1,10 @@
-package com.nortlu
+package com.github.pasteleiros.nortlulib
 
 import io.micronaut.runtime.Micronaut.*
 fun main(args: Array<String>) {
 	build()
 	    .args(*args)
-		.packages("com.nortlu")
+		.packages("com.github.pasteleiros.nortlulib")
 		.start()
 }
 
