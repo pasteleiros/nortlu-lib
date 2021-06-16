@@ -7,7 +7,7 @@ plugins {
 }
 
 version = "1.0"
-group = "com.github.pasteleiros"
+group = "io.github.pasteleiros"
 archivesBaseName = "nortlu-lib"
 
 repositories {
@@ -26,7 +26,7 @@ dependencies {
 }
 
 application {
-    mainClass = 'com.github.pasteleiros.AppKt'
+    mainClass = 'io.github.pasteleiros.AppKt'
 }
 
 //groupId = 'com.github.pasteleiros'
