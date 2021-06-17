@@ -90,8 +90,8 @@ publishing {
             def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
             url = isReleaseVersion ? releasesRepoUrl : snapshotsRepoUrl
             credentials {
-                username = System.getenv('OSSRH_USERNAME') || 'NA'
-                password = System.getenv('OSSRH_PASSWORD') || 'NA'
+                username = System.getenv('OSSRH_USERNAME')
+                password = System.getenv('OSSRH_PASSWORD')
             }
         }
     }
