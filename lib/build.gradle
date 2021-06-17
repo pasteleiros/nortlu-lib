@@ -1,0 +1,104 @@
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.4.31'
+    id 'maven-publish'
+    id 'signing'
+}
+
+group = 'io.github.pasteleiros'
+version = '1.0 - SNAPSHOT'
+
+dependencies {
+    implementation platform('org.jetbrains.kotlin:kotlin-bom')
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+    implementation 'com.google.guava:guava:30.0-jre'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+    api 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'javax.persistence:javax.persistence-api:2.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+def isReleaseVersion = !version.endsWith('SNAPSHOT')
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = project.getGroup()
+            artifactId = project.getName()
+            version = project.getVersion()
+            from components.java
+            pom {
+                name = 'nurtlu-api'
+                packaging = 'jar'
+                description = 'Biblioteca com entidades básicas do projeto nortlu'
+                url = 'https://github.com/pasteleiros/nortlu-lib'
+
+                scm {
+                    connection = 'scm:git:git@github.com:pasteleiros/nortlu-lib.git'
+                    developerConnection = 'scm:git:git@github.com:pasteleiros/nortlu-lib.git'
+                    url = 'https://github.com/pasteleiros/nortlu-lib'
+                }
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'diegomonteiroo'
+                        name = 'Diego Monteiro'
+                        email = 'diegomonteiroo32@hotmail.com'
+                    }
+                    developer {
+                        id = 'guilhermevicente'
+                        name = 'Guilherme Vicente'
+                        email = 'guilhermeov@hotmail.com'
+                    }
+                    developer {
+                        id = 'KuhakuAlves'
+                        name = 'Ricardo Alves'
+                        email = 'ricardo.rodrigues.alves@hotmail.com'
+                    }
+                    developer {
+                        id = 'uniliva'
+                        name = 'Uniliva Alves'
+                        email = 'uniliva@hotmail.com'
+                    }
+                }
+            }
+        }
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+repositories {
+    maven {
+        name = 'OSSRH'
+        def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+        def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+        url = isReleaseVersion ? releasesRepoUrl : snapshotsRepoUrl
+        credentials {
+            username = System.getenv("OSSRH_USERNAME")
+            password = System.getenv("OSSRH_PASSWORD")
+        }
+    }
+}
+
+signing {
+    required { isReleaseVersion }
+    def signingKey = System.getenv("GPG_PRIVATE_KEY")
+    def signingPassword = System.getenv("GPG_PASS")
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign publishing.publications.maven
+}
