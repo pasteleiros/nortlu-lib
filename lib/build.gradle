@@ -75,30 +75,33 @@ publishing {
             }
         }
     }
-}
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
 
-repositories {
-    maven {
-        name = 'OSSRH'
-        def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
-        def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
-        url = isReleaseVersion ? releasesRepoUrl : snapshotsRepoUrl
-        credentials {
-            username = System.getenv("OSSRH_USERNAME")
-            password = System.getenv("OSSRH_PASSWORD")
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    repositories {
+        maven {
+
+            name = 'OSSRH'
+            def releasesRepoUrl = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+            def snapshotsRepoUrl = 'https://oss.sonatype.org/content/repositories/snapshots/'
+            url = isReleaseVersion ? releasesRepoUrl : snapshotsRepoUrl
+            credentials {
+                username = System.getenv('OSSRH_USERNAME') || 'NA'
+                password = System.getenv('OSSRH_PASSWORD') || 'NA'
+            }
         }
     }
-}
 
-signing {
-    required { isReleaseVersion }
-    def signingKey = System.getenv("GPG_PRIVATE_KEY")
-    def signingPassword = System.getenv("GPG_PASS")
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign publishing.publications.maven
+    signing {
+        required { isReleaseVersion && !tasks.publishToMavenLocal }
+        def signingKey = System.getenv('GPG_PRIVATE_KEY')
+        def signingPassword = System.getenv('GPG_PASS')
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications.maven
+    }
+
 }
