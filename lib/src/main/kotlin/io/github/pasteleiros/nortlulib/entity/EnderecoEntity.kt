@@ -1,9 +1,6 @@
 package io.github.pasteleiros.nortlulib.entity
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity(name = "endereco")
 data class EnderecoEntity(
@@ -15,4 +12,7 @@ data class EnderecoEntity(
         val cidade: String,
         val cep: String,
         val observacao: String = ""
-):BaseEntity()
+):BaseEntity() {
+    @ManyToMany(mappedBy = "enderecos")
+    val usuarios: List<UsuarioEntity> = listOf()
+}

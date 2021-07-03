@@ -1,9 +1,6 @@
 package io.github.pasteleiros.nortlulib.entity
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity(name = "usuario")
 data class UsuarioEntity(
@@ -12,4 +9,10 @@ data class UsuarioEntity(
         val cpf: String,
         val email: String,
         val telefone: String,
-        val enderecos: List<EnderecoEntity>):BaseEntity()
+        @ManyToMany(cascade = [ CascadeType.MERGE ], fetch = FetchType.LAZY)
+        @JoinTable(name = "usuario_endereco",
+                joinColumns = [JoinColumn(name = "id_usuario", referencedColumnName = "id")],
+                inverseJoinColumns = [JoinColumn(name = "id_endereco", referencedColumnName = "id")])
+        val enderecos: List<EnderecoEntity> = listOf()):BaseEntity() {
+            constructor() : this(id = null, nome = "", cpf = "", email = "", telefone = "", enderecos = listOf())
+        }
