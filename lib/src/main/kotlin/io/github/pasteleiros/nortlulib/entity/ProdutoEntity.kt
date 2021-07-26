@@ -3,8 +3,8 @@ package io.github.pasteleiros.nortlulib.entity
 import java.math.BigDecimal
 import javax.persistence.*
 
-@Entity(name = "item_pedido")
-data class ItemPedidoEntity(
+@Entity(name = "produto")
+data class ProdutoEntity(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,
         val nome: String,
         val descricao: String,
