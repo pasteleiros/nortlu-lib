@@ -7,7 +7,7 @@ import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
 data class PedidoDto(val id: Long?,
-                     val items: List<ProdutoDto>,
+                     var itens: List<ProdutoDto>,
                      val usuario: UsuarioDto,
                      val formaPagamento: FormaPagamento,
                      val statusPedido: StatusPedido,

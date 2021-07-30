@@ -2,6 +2,7 @@ package io.github.pasteleiros.nortlulib.entity
 
 import io.github.pasteleiros.nortlulib.enum.FormaPagamento
 import io.github.pasteleiros.nortlulib.enum.StatusPedido
+import org.hibernate.annotations.Cascade
 import org.hibernate.annotations.Fetch
 import org.hibernate.annotations.FetchMode
 import java.math.BigDecimal
@@ -10,9 +11,6 @@ import javax.persistence.*
 @Entity(name = "pedido")
 data class PedidoEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,
-    @OneToMany(mappedBy = "pedido", fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    @Fetch(value = FetchMode.SUBSELECT)
-    val items: List<ProdutoEntity>,
 
     @OneToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "id_usuario", referencedColumnName = "id" )
@@ -25,11 +23,17 @@ data class PedidoEntity(
     val idStatus: Int,
 
     @Column(name = "valor_total")
-    val valorTotal: BigDecimal
+    val valorTotal: BigDecimal,
+
+    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @JoinTable(name = "itens_pedidos",
+        joinColumns = [JoinColumn(name = "id_produto", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "id_pedido", referencedColumnName = "id")])
+    var itens : List<ProdutoEntity> = listOf()
+
 ):BaseEntity() {
             constructor() : this(
                 id = null,
-                items = listOf(),
                 usuario = UsuarioEntity(),
                 idFormaPagamento = FormaPagamento.DEBITO.id,
                 idStatus = StatusPedido.SOLICITADO.id,
