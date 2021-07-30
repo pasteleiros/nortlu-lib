@@ -1,8 +1,11 @@
 package io.github.pasteleiros.nortlulib.entity
 
+import io.micronaut.core.annotation.Introspected
 import java.math.BigDecimal
 import javax.persistence.*
 
+
+@Introspected
 @Entity(name = "produto")
 data class ProdutoEntity(
         @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,

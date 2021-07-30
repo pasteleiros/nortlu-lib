@@ -9,7 +9,7 @@ data class UsuarioEntity(
         val cpf: String,
         val email: String,
         val telefone: String,
-        @ManyToMany(cascade = [ CascadeType.ALL ], fetch = FetchType.LAZY)
+        @ManyToMany(cascade = [ CascadeType.ALL ], fetch = FetchType.EAGER)
         @JoinTable(name = "usuario_endereco",
                 joinColumns = [JoinColumn(name = "id_usuario", referencedColumnName = "id")],
                 inverseJoinColumns = [JoinColumn(name = "id_endereco", referencedColumnName = "id")])
