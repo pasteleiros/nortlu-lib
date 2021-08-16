@@ -1,9 +1,9 @@
 package io.github.pasteleiros.nortlulib.mapper
 
-import io.github.pasteleiros.nortlulib.dto.ItemPedidoDto
-import io.github.pasteleiros.nortlulib.entity.ItemPedidoEntity
+import io.github.pasteleiros.nortlulib.dto.ProdutoDto
+import io.github.pasteleiros.nortlulib.entity.ProdutoEntity
 
-fun ItemPedidoDto.toEntity() = ItemPedidoEntity(this.id,this.nome,this.descricao,this.categoria.toEntity(),this.valor,this.foto)
-fun ItemPedidoEntity.toDto() = ItemPedidoDto(this.id,this.nome,this.descricao,this.categoria.toDto(),this.valor,this.foto)
-fun List<ItemPedidoDto>.toListDto():List<ItemPedidoEntity> = this.map{it.toEntity()}
-fun List<ItemPedidoEntity>.toListEntity():List<ItemPedidoDto> = this.map{it.toDto()}
+fun ProdutoDto.toEntity() = ProdutoEntity(this.id,this.nome,this.descricao,this.categoria.toEntity(),this.valor,this.foto)
+fun ProdutoEntity.toDto() = ProdutoDto(this.id,this.nome,this.descricao,this.categoria.toDto(),this.valor,this.foto)
+fun List<ProdutoDto>.toListEntity():List<ProdutoEntity> = this.map{it.toEntity()}
+fun List<ProdutoEntity>.toListDto():List<ProdutoDto> = this.map{it.toDto()}
