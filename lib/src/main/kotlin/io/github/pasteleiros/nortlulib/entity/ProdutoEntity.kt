@@ -18,6 +18,6 @@ data class ProdutoEntity(
     val foto: String
 ) : BaseEntity() {
 
-    @ManyToMany(mappedBy = "itens", cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "itens")
     var pedidos: List<PedidoEntity> = listOf();
 }

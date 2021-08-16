@@ -13,7 +13,7 @@ data class EnderecoEntity(
         val cep: String = "",
         val observacao: String?
 ):BaseEntity() {
-    @ManyToMany(mappedBy = "enderecos", cascade = [CascadeType.ALL])
+    @ManyToMany(mappedBy = "enderecos")
     val usuarios: List<UsuarioEntity> = listOf()
     constructor():this(null, "", 0,
             "", "", "", "", "")

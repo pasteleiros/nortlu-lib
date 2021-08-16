@@ -12,7 +12,7 @@ import javax.persistence.*
 data class PedidoEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,
 
-    @OneToOne(cascade = [CascadeType.ALL])
+    @OneToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id" )
     val usuario: UsuarioEntity,
 
@@ -25,7 +25,7 @@ data class PedidoEntity(
     @Column(name = "valor_total")
     val valorTotal: BigDecimal,
 
-    @ManyToMany(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "itens_pedidos",
         joinColumns = [JoinColumn(name = "id_produto", referencedColumnName = "id")],
         inverseJoinColumns = [JoinColumn(name = "id_pedido", referencedColumnName = "id")])
