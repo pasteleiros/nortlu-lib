@@ -1,6 +1,6 @@
 package io.github.pasteleiros.nortlulib.dto
 
-data class UsuarioDto(val id: Long?,
+data class UsuarioDto(var id: Long?,
                  val nome: String,
                  val cpf: String,
                  val email: String,
