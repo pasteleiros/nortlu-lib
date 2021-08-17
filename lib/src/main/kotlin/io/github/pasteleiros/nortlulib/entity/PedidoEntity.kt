@@ -2,9 +2,6 @@ package io.github.pasteleiros.nortlulib.entity
 
 import io.github.pasteleiros.nortlulib.enum.FormaPagamento
 import io.github.pasteleiros.nortlulib.enum.StatusPedido
-import org.hibernate.annotations.Cascade
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
 import java.math.BigDecimal
 import javax.persistence.*
 
@@ -25,18 +22,14 @@ data class PedidoEntity(
     @Column(name = "valor_total")
     val valorTotal: BigDecimal,
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "itens_pedidos",
-        joinColumns = [JoinColumn(name = "id_produto", referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(name = "id_pedido", referencedColumnName = "id")])
-    var itens : List<ProdutoEntity> = listOf()
-
+    @ManyToMany(mappedBy = "itensPedido")
+    val produtos: List<ProdutoEntity> = listOf()
 ):BaseEntity() {
-            constructor() : this(
-                id = null,
-                usuario = UsuarioEntity(),
-                idFormaPagamento = FormaPagamento.DEBITO.id,
-                idStatus = StatusPedido.SOLICITADO.id,
-                valorTotal = BigDecimal.ZERO
-            )
-        }
+    constructor() : this(
+        id = null,
+        usuario = UsuarioEntity(),
+        idFormaPagamento = FormaPagamento.DEBITO.id,
+        idStatus = StatusPedido.SOLICITADO.id,
+        valorTotal = BigDecimal.ZERO
+    )
+}

@@ -8,16 +8,19 @@ import javax.persistence.*
 @Introspected
 @Entity(name = "produto")
 data class ProdutoEntity(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long?,
-    val nome: String,
-    val descricao: String,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
+    val nome: String = "",
+    val descricao: String = "",
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    val categoria: CategoriaEntity,
-    val valor: BigDecimal,
-    val foto: String
+    val categoria: CategoriaEntity = CategoriaEntity(),
+    val valor: BigDecimal = BigDecimal.ZERO,
+    val foto: String = ""
 ) : BaseEntity() {
 
-    @ManyToMany(mappedBy = "itens")
-    var pedidos: List<PedidoEntity> = listOf();
+    @ManyToMany( fetch = FetchType.EAGER)
+    @JoinTable(name = "itens_pedido",
+        joinColumns = [JoinColumn(name = "id_produto", referencedColumnName = "id")],
+        inverseJoinColumns = [JoinColumn(name = "id_epedido", referencedColumnName = "id")])
+    val itensPedido: List<PedidoEntity> = listOf()
 }
