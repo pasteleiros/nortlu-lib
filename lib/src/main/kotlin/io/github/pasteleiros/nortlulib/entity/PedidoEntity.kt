@@ -22,8 +22,9 @@ data class PedidoEntity(
     @Column(name = "valor_total")
     val valorTotal: BigDecimal,
 
-    @ManyToMany(mappedBy = "itensPedido")
+    @ManyToMany(mappedBy = "pedidos")
     val produtos: List<ProdutoEntity> = listOf()
+
 ):BaseEntity() {
     constructor() : this(
         id = null,

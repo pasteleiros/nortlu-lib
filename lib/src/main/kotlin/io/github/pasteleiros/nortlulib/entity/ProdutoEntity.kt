@@ -17,10 +17,11 @@ data class ProdutoEntity(
     val valor: BigDecimal = BigDecimal.ZERO,
     val foto: String = ""
 ) : BaseEntity() {
-
-    @ManyToMany( fetch = FetchType.EAGER)
-    @JoinTable(name = "itens_pedido",
-        joinColumns = [JoinColumn(name = "id_produto", referencedColumnName = "id")],
-        inverseJoinColumns = [JoinColumn(name = "id_epedido", referencedColumnName = "id")])
-    val itensPedido: List<PedidoEntity> = listOf()
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "itens_pedidos",
+        joinColumns = [JoinColumn(name = "id_produto")],
+        inverseJoinColumns = [JoinColumn(name = "id_pedido")]
+    )
+    var pedidos: List<PedidoEntity> = mutableListOf()
 }
