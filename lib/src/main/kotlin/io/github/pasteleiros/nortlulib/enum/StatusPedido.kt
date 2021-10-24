@@ -13,7 +13,11 @@ enum class StatusPedido  (val id: Int, val descricao: String) {
 
     companion object {
         fun parse(codigo: Int) = values().filter { it.id == codigo }
-            .ifEmpty { throw ValidacaoException("Erro ao tentar converter codigo $codigo em enum de FormaPagamento") }
+            .ifEmpty { throw ValidacaoException("Erro ao tentar converter codigo $codigo em enum de StatusPedido") }
+            .single()
+
+        fun parse(nome: String) = values().filter { it.name == nome }
+            .ifEmpty { throw ValidacaoException("Erro ao tentar converter nome $nome em enum de StatusPedido") }
             .single()
     }
 }

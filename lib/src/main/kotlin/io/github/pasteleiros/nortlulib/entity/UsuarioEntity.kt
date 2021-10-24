@@ -1,5 +1,7 @@
 package io.github.pasteleiros.nortlulib.entity
 
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import javax.persistence.*
 
 @Entity(name = "usuario")
@@ -9,7 +11,8 @@ data class UsuarioEntity(
         val cpf: String,
         val email: String,
         val telefone: String,
-        @ManyToMany( fetch = FetchType.EAGER)
+        @LazyCollection(LazyCollectionOption.FALSE)
+        @ManyToMany
         @JoinTable(name = "usuario_endereco",
                 joinColumns = [JoinColumn(name = "id_usuario", referencedColumnName = "id")],
                 inverseJoinColumns = [JoinColumn(name = "id_endereco", referencedColumnName = "id")])

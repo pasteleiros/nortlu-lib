@@ -10,5 +10,5 @@ data class PedidoDto(val id: Long?,
                      var itens: List<ProdutoDto>,
                      val usuario: UsuarioDto,
                      val formaPagamento: FormaPagamento,
-                     val statusPedido: StatusPedido,
+                     var statusPedido: StatusPedido,
                      val valorTotal: BigDecimal):BaseDto()

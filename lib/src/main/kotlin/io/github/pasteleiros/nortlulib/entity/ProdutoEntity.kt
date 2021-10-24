@@ -1,6 +1,8 @@
 package io.github.pasteleiros.nortlulib.entity
 
 import io.micronaut.core.annotation.Introspected
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import java.math.BigDecimal
 import javax.persistence.*
 
@@ -15,13 +17,16 @@ data class ProdutoEntity(
     @JoinColumn(name = "id_categoria")
     val categoria: CategoriaEntity = CategoriaEntity(),
     val valor: BigDecimal = BigDecimal.ZERO,
-    val foto: String = ""
+    val foto: String = "",
+    val ativo: Boolean = false
 ) : BaseEntity() {
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "itens_pedidos",
-        joinColumns = [JoinColumn(name = "id_produto")],
-        inverseJoinColumns = [JoinColumn(name = "id_pedido")]
-    )
+    //    @ManyToMany
+//    @JoinTable(
+//        name = "itens_pedidos",
+//        joinColumns = [JoinColumn(name = "id_produto")],
+//        inverseJoinColumns = [JoinColumn(name = "id_pedido")]
+//    )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(mappedBy = "produtos")
     var pedidos: List<PedidoEntity> = mutableListOf()
 }

@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'io.github.pasteleiros'
-version = '1.10-SNAPSHOT'
+version = '1.12-SNAPSHOT'
 
 dependencies {
     implementation platform('org.jetbrains.kotlin:kotlin-bom')

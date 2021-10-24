@@ -2,6 +2,8 @@ package io.github.pasteleiros.nortlulib.entity
 
 import io.github.pasteleiros.nortlulib.enum.FormaPagamento
 import io.github.pasteleiros.nortlulib.enum.StatusPedido
+import org.hibernate.annotations.LazyCollection
+import org.hibernate.annotations.LazyCollectionOption
 import java.math.BigDecimal
 import javax.persistence.*
 
@@ -22,8 +24,17 @@ data class PedidoEntity(
     @Column(name = "valor_total")
     val valorTotal: BigDecimal,
 
-    @ManyToMany(mappedBy = "pedidos")
-    val produtos: List<ProdutoEntity> = listOf()
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    @ManyToMany(mappedBy = "pedidos")
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany
+    @JoinTable(
+        name = "itens_pedidos",
+        joinColumns = [JoinColumn(name = "id_pedido")],
+        inverseJoinColumns = [JoinColumn(name = "id_produto")]
+    )
+    val produtos: List<ProdutoEntity> = mutableListOf()
 
 ):BaseEntity() {
     constructor() : this(

@@ -1,7 +1,7 @@
 package io.github.pasteleiros.nortlulib.dto
 
 data class EnderecoDto(
-        val id: Long?,
+        var id: Long?,
         val logradouro: String,
         val numero: Int,
         val complemento: String?,
